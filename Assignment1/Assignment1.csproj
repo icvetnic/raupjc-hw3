@@ -47,11 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuplicateTodoItemException.cs" />
     <Compile Include="ITodoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TodoAccessDeniedException.cs" />
     <Compile Include="TodoDbContext.cs" />
     <Compile Include="TodoItem.cs" />
     <Compile Include="TodoItemLabel.cs" />
+    <Compile Include="TodoSqlRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
