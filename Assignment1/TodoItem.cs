@@ -8,7 +8,17 @@ namespace Assignment1
         public Guid Id { get; set; }
         public string Text { get; set; }
 
-        public bool IsCompleted => DateCompleted.HasValue;
+        public bool IsCompleted
+        {
+            get
+            {
+                return DateCompleted.HasValue;
+            }
+            set
+            {
+                
+            }
+        }
 
         public DateTime? DateCompleted { get; set; }
         public DateTime DateCreated { get; set; }

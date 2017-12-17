@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Assignment2.Models;
+using Assignment1;
 
 namespace Assignment2.Data
 {
