@@ -34,19 +34,19 @@ namespace Assignment1
             // not for use :)
         }
 
-        public TodoItem(string text)
+        public TodoItem(string text, Guid userId)
         {
             // Generates new unique identifier
             Id = Guid.NewGuid();
-
+            Text = text;
             // DateTime .Now returns local time , it wont always be what you expect
             //(depending where the server is).
             // We want to use universal (UTC ) time which we can easily convert to
             //local when needed.
             // ( usually done in browser on the client side )
             DateCreated = DateTime.UtcNow;
-
-            Text = text;
+            UserId = userId;
+            Labels = new List<TodoItemLabel>();
         }
 
         public bool MarkAsCompleted()

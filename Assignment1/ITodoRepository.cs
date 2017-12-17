@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Assignment1
 {
@@ -13,7 +14,7 @@ namespace Assignment1
         /// <param name="userId">Id of the user that is trying to fetch the
         /// data</param>
         /// <returns>TodoItem if found, null otherwise</returns>
-        TodoItem Get(Guid todoId, Guid userId);
+        Task<TodoItem> Get(Guid todoId, Guid userId);
 
         /// <summary>
         /// Adds new TodoItem object in database.
@@ -32,7 +33,7 @@ namespace Assignment1
         /// <param name="userId">Id of the user that is trying to remove the
         /// data</param>
         /// <returns>True if success, false otherwise</returns>
-        bool Remove(Guid todoId, Guid userId);
+        Task<bool> Remove(Guid todoId, Guid userId);
 
         /// <summary>
         /// Updates given TodoItem in database.
@@ -54,28 +55,28 @@ namespace Assignment1
         /// <param name="userId">Id of the user that is trying to mark as
         /// completed</param>
         /// <returns>True if success, false otherwise</returns>
-        bool MarkAsCompleted(Guid todoId, Guid userId);
+        Task<bool> MarkAsCompleted(Guid todoId, Guid userId);
 
         /// <summary>
         /// Gets all TodoItem objects in database for user, sorted by date
         /// created(descending)
         /// </summary>
-        List<TodoItem> GetAll(Guid userId);
+        Task<List<TodoItem>> GetAll(Guid userId);
 
         /// <summary>
         /// Gets all incomplete TodoItem objects in database for user
         /// </summary>
-        List<TodoItem> GetActive(Guid userId);
+        Task<List<TodoItem>> GetActive(Guid userId);
 
         /// <summary>
         /// Gets all completed TodoItem objects in database for user
         /// </summary>
-        List<TodoItem> GetCompleted(Guid userId);
+        Task<List<TodoItem>> GetCompleted(Guid userId);
 
         /// <summary>
         /// Gets all TodoItem objects in database for user that apply to the
         /// filter
         /// </summary>
-        List<TodoItem> GetFiltered(Func<TodoItem, bool> filterFunction, Guid userId);
+        Task<List<TodoItem>> GetFiltered(Func<TodoItem, bool> filterFunction, Guid userId);
     }
 }

@@ -25,7 +25,8 @@ namespace Assignment1
             modelBuilder.Entity<TodoItem>().Property(td => td.DateDue).IsOptional();
             modelBuilder.Entity<TodoItem>().HasMany(td => td.Labels).WithMany(tdl => tdl.LabelTodoItems);
 
-
+            modelBuilder.Entity<TodoItemLabel>().HasKey(tdl => tdl.Id);
+            modelBuilder.Entity<TodoItemLabel>().Property(tdl => tdl.Value).IsRequired();
 
         }
     }
