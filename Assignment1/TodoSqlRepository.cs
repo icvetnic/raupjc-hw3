@@ -34,7 +34,7 @@ namespace Assignment1
             return todoItem;
         }
 
-        public void Add(TodoItem todoItem)
+        public async void Add(TodoItem todoItem)
         {
             if (_context.TodoItems.ContainsAsync(todoItem) != null)
             {
@@ -42,7 +42,7 @@ namespace Assignment1
                     $"TodoItem with id:{todoItem.Id} is already in the data base.");
             }
             _context.TodoItems.Add(todoItem);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> Remove(Guid todoId, Guid userId)
@@ -59,7 +59,7 @@ namespace Assignment1
                     $"User with id:{userId} is not the owner of the todoItem with id:{todoId}.");
             }
             _context.TodoItems.Remove(todoItem);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return true;
         }
 
@@ -79,7 +79,7 @@ namespace Assignment1
                 }
                 _context.Entry(todoItem).State = EntityState.Modified;
             }
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> MarkAsCompleted(Guid todoId, Guid userId)
@@ -96,35 +96,35 @@ namespace Assignment1
             }
             todoItem.MarkAsCompleted();
             _context.Entry(todoItem).State = EntityState.Modified;
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public Task<List<TodoItem>> GetAll(Guid userId)
+        public async Task<List<TodoItem>> GetAll(Guid userId)
         {
-            return _context.TodoItems
+            return await _context.TodoItems
                 .Where(td => td.UserId.Equals(userId))
                 .OrderByDescending(td => td.DateCreated)
                 .ToListAsync();
         }
 
-        public Task<List<TodoItem>> GetActive(Guid userId)
+        public async Task<List<TodoItem>> GetActive(Guid userId)
         {
-            return _context.TodoItems
+            return await _context.TodoItems
                 .Where(td => td.IsCompleted == false && td.UserId.Equals(userId))
                 .ToListAsync();
         }
 
-        public Task<List<TodoItem>> GetCompleted(Guid userId)
+        public async Task<List<TodoItem>> GetCompleted(Guid userId)
         {
-            return _context.TodoItems
+            return await _context.TodoItems
                 .Where(td => td.IsCompleted == true && td.UserId.Equals(userId))
                 .ToListAsync();
         }
 
-        public Task<List<TodoItem>> GetFiltered(Func<TodoItem, bool> filterFunction, Guid userId)
+        public async Task<List<TodoItem>> GetFiltered(Func<TodoItem, bool> filterFunction, Guid userId)
         {
-            return _context.TodoItems
+            return await _context.TodoItems
                 .Where(td => filterFunction(td) && td.UserId.Equals(userId))
                 .ToListAsync();
         }
