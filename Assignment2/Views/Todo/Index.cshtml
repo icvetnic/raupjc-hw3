@@ -7,7 +7,8 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Add new todo</a>
+    <a asp-action="Add">Add new todo</a>
+    &nbsp;
     <a asp-action="Completed">See completed todos</a>
 </p>
 <table class="table">
@@ -43,11 +44,11 @@
             <td>
                 @if (item.IsCompleted)
                 {
-                    <a asp-action="Completed">Mark as completed</a>
+                    <a asp-action="ReverseComplete">Mark as completed</a>
                 }
                 else
                 {
-                    <a asp-action="Completed">Remove from completed</a>
+                    <a asp-action="ReverseComplete">Remove from completed</a>
                 }
             </td>
         </tr>

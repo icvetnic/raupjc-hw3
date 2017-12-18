@@ -43,7 +43,7 @@ namespace Assignment2.Models.TodoViewModels
                     timeLeft = "Za ";
                     if (diffSpan.TotalDays > 0)
                     {
-                        timeLeft += diffSpan.TotalDays + " dana i ";
+                        timeLeft += String.Format("{0:0}", diffSpan.TotalDays) + " dana i ";
                     }
                     timeLeft += diffSpan.Hours + " sati!";
                 }

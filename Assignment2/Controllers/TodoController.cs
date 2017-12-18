@@ -8,6 +8,7 @@ using Assignment2.Models.TodoViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Assignment2.Controllers
 {
@@ -23,12 +24,38 @@ namespace Assignment2.Controllers
             _repository = repository;
             _userManager = userManager;
         }
+
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             List<TodoItem> userActiveTodoes = await _repository.GetActive(new Guid(user.Id));
             IndexViewModel indexViewModel = new IndexViewModel(userActiveTodoes);
             return View(indexViewModel);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddTodoViewModel model)
+        {  
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                TodoItem todoItem = new TodoItem(model.Text, new Guid(user.Id));
+                todoItem.DateDue = model.DateDue;
+                try
+                {
+                    _repository.Add(todoItem);
+                }catch(DuplicateTodoItemException ex)
+                {
+                    Log.Information(ex.Message);
+                }
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }

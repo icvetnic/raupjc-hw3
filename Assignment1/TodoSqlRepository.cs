@@ -26,7 +26,7 @@ namespace Assignment1
             {
                 return null;
             }
-            if (todoItem.UserId.Equals(userId))
+            if (!todoItem.UserId.Equals(userId))
             {
                 throw new TodoAccessDeniedException(
                     $"User with id:{userId} is not the owner of the todoItem with id:{todoId}.");
@@ -36,13 +36,13 @@ namespace Assignment1
 
         public async void Add(TodoItem todoItem)
         {
-            if (_context.TodoItems.ContainsAsync(todoItem) != null)
+            if (_context.TodoItems.Select(td => td.Id).Contains(todoItem.Id))
             {
                 throw new DuplicateTodoItemException(
                     $"TodoItem with id:{todoItem.Id} is already in the data base.");
             }
             _context.TodoItems.Add(todoItem);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public async Task<bool> Remove(Guid todoId, Guid userId)
@@ -59,7 +59,7 @@ namespace Assignment1
                     $"User with id:{userId} is not the owner of the todoItem with id:{todoId}.");
             }
             _context.TodoItems.Remove(todoItem);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return true;
         }
 
@@ -79,7 +79,7 @@ namespace Assignment1
                 }
                 _context.Entry(todoItem).State = EntityState.Modified;
             }
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public async Task<bool> MarkAsCompleted(Guid todoId, Guid userId)

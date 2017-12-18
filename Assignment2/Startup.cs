@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Assignment2.Data;
 using Assignment2.Models;
 using Assignment2.Services;
+using Serilog;
 
 namespace Assignment2
 {
@@ -28,7 +29,7 @@ namespace Assignment2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ITodoRepository, TodoSqlRepository>();
-            services.AddTransient<TodoDbContext>(
+            services.AddScoped<TodoDbContext>(
                 s => new TodoDbContext(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<ApplicationDbContext>(options =>

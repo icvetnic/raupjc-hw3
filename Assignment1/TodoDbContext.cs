@@ -9,7 +9,6 @@ namespace Assignment1
 
         public TodoDbContext(string conectionString) : base(conectionString)
         {
-
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
