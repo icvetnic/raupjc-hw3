@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Assignment1;
 using Assignment2.Models;
+using Assignment2.Models.TodoViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,8 @@ namespace Assignment2.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             List<TodoItem> userActiveTodoes = await _repository.GetActive(new Guid(user.Id));
-            return View(userActiveTodoes);
+            IndexViewModel indexViewModel = new IndexViewModel(userActiveTodoes);
+            return View(indexViewModel);
         }
     }
 }

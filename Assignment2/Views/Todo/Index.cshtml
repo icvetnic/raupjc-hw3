@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Assignment1.TodoItem>
+﻿@model Assignment2.Models.TodoViewModels.IndexViewModel
 
 @{
     ViewData["Title"] = "ActiveTodoes";
@@ -14,45 +14,41 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Text)
+                    Task
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateCompleted)
+                    Date Due
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
+                    Time left
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateDue)
+                    Mark as completed
                 </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.TodoItemModels) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateCompleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.DateDue)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.TimeLeft)
+            </td>
+            <td>
+                @if (item.IsCompleted)
+                {
+                    <a asp-action="Completed">Mark as completed</a>
+                }
+                else
+                {
+                    <a asp-action="Completed">Remove from completed</a>
+                }
             </td>
         </tr>
 }
