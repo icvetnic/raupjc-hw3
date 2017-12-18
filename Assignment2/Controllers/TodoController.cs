@@ -40,7 +40,7 @@ namespace Assignment2.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Add(AddTodoViewModel model)
-        {  
+        {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -49,7 +49,7 @@ namespace Assignment2.Controllers
                 try
                 {
                     _repository.Add(todoItem);
-                }catch(DuplicateTodoItemException ex)
+                } catch (DuplicateTodoItemException ex)
                 {
                     Log.Information(ex.Message);
                 }
@@ -61,8 +61,28 @@ namespace Assignment2.Controllers
         public async Task<IActionResult> MarkAsCompleted(Guid Id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            await _repository.MarkAsCompleted(Id, new Guid(user.Id));
+            await _repository.MarkAsCompleted(Id, new Guid(user.Id));             
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Completed()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            List<TodoItem> userCompletedTodoes = await _repository.GetCompleted(new Guid(user.Id));
+            CompletedViewModel indexViewModel = new CompletedViewModel(userCompletedTodoes);
+            return View(indexViewModel);
+        }
+
+        public async Task<IActionResult> Remove(Guid Id)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            bool isRemoved = await _repository.Remove(Id, new Guid(user.Id));
+            if (!isRemoved)
+            {
+                Log.Information(
+                    $"TodoItem with id {Id} is not removed from database.");
+            }
+            return RedirectToAction("Completed");
         }
     }
 }

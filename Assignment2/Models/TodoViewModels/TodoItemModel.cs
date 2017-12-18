@@ -8,6 +8,7 @@ namespace Assignment2.Models.TodoViewModels
         public Guid Id { get; set; }
         public string Text { get; set; }
         public DateTime? DateDue { get; set; }
+        public DateTime? DateCompleted { get; set; }
         public string TimeLeft { get; set; }
         public bool IsCompleted { get; set; }
 
@@ -16,6 +17,7 @@ namespace Assignment2.Models.TodoViewModels
             Id = todoItem.Id;
             Text = todoItem.Text;
             DateDue = todoItem.DateDue;
+            DateCompleted = todoItem.DateCompleted;
             TimeLeft = getTimeLeftMessage(todoItem.DateDue);
             IsCompleted = todoItem.IsCompleted;
         }

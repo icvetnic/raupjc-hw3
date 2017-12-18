@@ -1,0 +1,45 @@
+﻿@model Assignment2.Models.TodoViewModels.CompletedViewModel
+
+@{
+    ViewData["Title"] = "CompletedTodoes";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Add">Add new todo</a>
+    &nbsp;
+    <a asp-action="Index">See active todoes</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Task
+            </th>
+            <th>
+                Date Completed
+            </th>
+            <th>
+                Remove from list
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TodoItemModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCompleted)
+                </td>
+                <td>
+                    <a asp-action="Remove" asp-route-Id="@item.Id">Remove from completed</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
