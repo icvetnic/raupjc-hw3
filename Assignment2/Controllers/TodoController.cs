@@ -46,21 +46,22 @@ namespace Assignment2.Controllers
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 TodoItem todoItem = new TodoItem(model.Text, new Guid(user.Id));
                 todoItem.DateDue = model.DateDue;
+                try
+                {
+                    _repository.Add(todoItem);
+                }
+                catch (DuplicateTodoItemException ex)
+                {
+                    Log.Information(ex.Message);
+                }
                 String[] labels = model.separateLabels();
                 if (labels != null)
                 {
                     foreach (string label in labels)
                     {
                         TodoItemLabel todoItemLabel = _repository.AddLabel(label);
-                        todoItem.Labels.Add(todoItemLabel);
+                        _repository.AddLabelToTodoItem(todoItemLabel, todoItem);
                     }
-                }
-                try
-                {
-                    _repository.Add(todoItem);
-                } catch (DuplicateTodoItemException ex)
-                {
-                    Log.Information(ex.Message);
                 }
                 return RedirectToAction("Index");
             }

@@ -14,18 +14,21 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    Task
-                </th>
-                <th>
-                    Date Due
-                </th>
-                <th>
-                    Time left
-                </th>
-                <th>
-                    Mark as completed
-                </th>
+            <th>
+                Task
+            </th>
+            <th>
+                Date Due
+            </th>
+            <th>
+                Time left
+            </th>
+            <th>
+                Todo Item Labeles
+            </th>
+            <th>
+                Mark as completed
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,7 +45,17 @@
                 @Html.DisplayFor(modelItem => item.TimeLeft)
             </td>
             <td>
-            <a asp-action="MarkAsCompleted" asp-route-Id="@item.Id">Mark as completed</a>
+                @if (item.Labels != null)
+                {
+                    @foreach (var label in item.Labels)
+                    {
+                    @Html.DisplayFor(modelLabel => label.Value)
+                        <br />
+                    }
+                }
+            </td>
+            <td>
+                <a asp-action="MarkAsCompleted" asp-route-Id="@item.Id">Mark as completed</a>
             </td>
         </tr>
 }

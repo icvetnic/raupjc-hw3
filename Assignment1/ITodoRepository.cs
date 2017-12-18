@@ -26,6 +26,13 @@ namespace Assignment1
         TodoItemLabel AddLabel(String label);
 
         /// <summary>
+        /// Add todoItemLabel to todoItem label list.
+        /// </summary>
+        /// <param name="todoItemLabel"></param>
+        /// <param name="todoItem"></param>
+        void AddLabelToTodoItem(TodoItemLabel todoItemLabel, TodoItem todoItem);
+
+        /// <summary>
         /// Adds new TodoItem object in database.
         /// If object with the same id already exists,
         /// method should throw DuplicateTodoItemException with the message

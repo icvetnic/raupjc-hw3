@@ -23,23 +23,36 @@
             <th>
                 Remove from list
             </th>
+            <th>
+                Mark as completed
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.TodoItemModels)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Text)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCompleted)
-                </td>
-                <td>
-                    <a asp-action="Remove" asp-route-Id="@item.Id">Remove from completed</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCompleted)
+            </td>
+            <td>
+                @if (item.Labels != null)
+        {
+            @foreach (var label in item.Labels)
+            {
+                    @Html.DisplayFor(modelLabel => label.Value)
+                <br />
+            }
+        }
+            </td>
+            <td>
+                <a asp-action="Remove" asp-route-Id="@item.Id">Remove from completed</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

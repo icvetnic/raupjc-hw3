@@ -50,6 +50,13 @@ namespace Assignment1
             return newtodoItemLabel;
         }
 
+        public void AddLabelToTodoItem(TodoItemLabel todoItemLabel, TodoItem todoItem)
+        {
+            todoItem.Labels.Add(todoItemLabel);
+            _context.Entry(todoItem).State = EntityState.Modified;
+            _context.SaveChanges();
+        }                      
+
         public void Add(TodoItem todoItem)
         {
             if (_context.TodoItems.Select(td => td.Id).Contains(todoItem.Id))
@@ -127,6 +134,7 @@ namespace Assignment1
         public async Task<List<TodoItem>> GetActive(Guid userId)
         {
             return await _context.TodoItems
+                .Include(td => td.Labels)
                 .Where(td => td.IsCompleted == false && td.UserId.Equals(userId))
                 .ToListAsync();
         }
@@ -134,6 +142,7 @@ namespace Assignment1
         public async Task<List<TodoItem>> GetCompleted(Guid userId)
         {
             return await _context.TodoItems
+                .Include(td => td.Labels)
                 .Where(td => td.IsCompleted == true && td.UserId.Equals(userId))
                 .ToListAsync();
         }

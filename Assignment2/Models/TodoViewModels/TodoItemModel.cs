@@ -1,5 +1,6 @@
 ﻿using System;
 using Assignment1;
+using System.Collections.Generic;
 
 namespace Assignment2.Models.TodoViewModels
 {
@@ -11,6 +12,7 @@ namespace Assignment2.Models.TodoViewModels
         public DateTime? DateCompleted { get; set; }
         public string TimeLeft { get; set; }
         public bool IsCompleted { get; set; }
+        public List<TodoItemLabel> Labels { get; set; }
 
         public TodoItemModel(TodoItem todoItem)
         {
@@ -20,6 +22,7 @@ namespace Assignment2.Models.TodoViewModels
             DateCompleted = todoItem.DateCompleted;
             TimeLeft = getTimeLeftMessage(todoItem.DateDue);
             IsCompleted = todoItem.IsCompleted;
+            Labels = todoItem.Labels;
         }
 
         private static String getTimeLeftMessage(DateTime? DateDue)
