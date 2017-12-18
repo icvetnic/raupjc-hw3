@@ -46,6 +46,15 @@ namespace Assignment2.Controllers
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 TodoItem todoItem = new TodoItem(model.Text, new Guid(user.Id));
                 todoItem.DateDue = model.DateDue;
+                String[] labels = model.separateLabels();
+                if (labels != null)
+                {
+                    foreach (string label in labels)
+                    {
+                        TodoItemLabel todoItemLabel = _repository.AddLabel(label);
+                        todoItem.Labels.Add(todoItemLabel);
+                    }
+                }
                 try
                 {
                     _repository.Add(todoItem);

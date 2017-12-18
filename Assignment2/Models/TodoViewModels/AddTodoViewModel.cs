@@ -15,5 +15,19 @@ namespace Assignment2.Models.TodoViewModels
 
         [DataType(DataType.DateTime)]
         public DateTime? DateDue { get; set; }
+
+        [StringLength(100, ErrorMessage = "Labeles must be separated with ;")]
+        [RegularExpression(@"^((\w[\w -]*)|((\w[\w -]*;)+(\w[\w -]*)))$")]
+        public String Labels { get; set; }
+
+        public String[] separateLabels()
+        {
+            if (Labels == null)
+            {
+                return null;
+            }
+            String[] labels = Labels.Split(new char[] { ';' });
+            return labels;
+        }
     }
 }

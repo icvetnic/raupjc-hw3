@@ -17,6 +17,15 @@ namespace Assignment1
         Task<TodoItem> Get(Guid todoId, Guid userId);
 
         /// <summary>
+        /// Cheks if given label already exist in database. If it exist, 
+        /// return that label. Otherwise creates new TodoItem label from given
+        /// string and adds it in database.
+        /// </summary>
+        /// <param name="label"></param>
+        /// <returns></returns>
+        TodoItemLabel AddLabel(String label);
+
+        /// <summary>
         /// Adds new TodoItem object in database.
         /// If object with the same id already exists,
         /// method should throw DuplicateTodoItemException with the message

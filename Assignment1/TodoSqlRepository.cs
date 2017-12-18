@@ -34,6 +34,22 @@ namespace Assignment1
             return todoItem;
         }
 
+        public TodoItemLabel AddLabel(String label)
+        {
+            TodoItemLabel todoItemLabel = _context.TodoItemLabels
+                .Where(td => td.Value.Equals(label))
+                .FirstOrDefault();
+
+            if (todoItemLabel != null)
+            {
+                return todoItemLabel;
+            }
+
+            TodoItemLabel newtodoItemLabel = new TodoItemLabel(label);
+            _context.TodoItemLabels.Add(newtodoItemLabel);
+            return newtodoItemLabel;
+        }
+
         public void Add(TodoItem todoItem)
         {
             if (_context.TodoItems.Select(td => td.Id).Contains(todoItem.Id))
