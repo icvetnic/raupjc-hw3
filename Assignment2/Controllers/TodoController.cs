@@ -57,5 +57,12 @@ namespace Assignment2.Controllers
             }
             return View();
         }
+
+        public async Task<IActionResult> MarkAsCompleted(Guid Id)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            await _repository.MarkAsCompleted(Id, new Guid(user.Id));
+            return RedirectToAction("Index");
+        }
     }
 }

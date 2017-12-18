@@ -34,7 +34,7 @@ namespace Assignment1
             return todoItem;
         }
 
-        public async void Add(TodoItem todoItem)
+        public void Add(TodoItem todoItem)
         {
             if (_context.TodoItems.Select(td => td.Id).Contains(todoItem.Id))
             {
@@ -96,7 +96,7 @@ namespace Assignment1
             }
             todoItem.MarkAsCompleted();
             _context.Entry(todoItem).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return true;
         }
 

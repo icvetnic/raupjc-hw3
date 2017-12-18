@@ -18,6 +18,11 @@ namespace Assignment1
         /// </summary>
         public List<TodoItem> LabelTodoItems { get; set; }
 
+        public TodoItemLabel()
+        {
+
+        }
+
         public TodoItemLabel(string value)
         {
             Id = Guid.NewGuid();

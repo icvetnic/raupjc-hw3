@@ -42,14 +42,7 @@
                 @Html.DisplayFor(modelItem => item.TimeLeft)
             </td>
             <td>
-                @if (item.IsCompleted)
-                {
-                    <a asp-action="ReverseComplete">Mark as completed</a>
-                }
-                else
-                {
-                    <a asp-action="ReverseComplete">Remove from completed</a>
-                }
+            <a asp-action="MarkAsCompleted" asp-route-Id="@item.Id">Mark as completed</a>
             </td>
         </tr>
 }
